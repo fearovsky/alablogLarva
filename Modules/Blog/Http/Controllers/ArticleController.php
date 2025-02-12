@@ -8,10 +8,12 @@ use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Article;
 use Illuminate\Support\Facades\Log;
 use Modules\Blog\Dto\ArticleStoreDto;
+use Modules\Blog\Dto\ArticleUpdateDto;
 use Modules\Blog\Services\ArticleService;
 use Modules\Blog\Transformers\ArticleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\Blog\Http\Requests\ArticleStoreRequest;
+use Modules\Blog\Http\Requests\ArticleUpdateRequest;
 
 class ArticleController extends Controller
 {
@@ -81,9 +83,22 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return JsonResource
      */
-    public function update(Request $request, $id)
+    public function update(ArticleUpdateRequest $request, Article $article)
     {
-        //
+        try {
+            $this->articleService->update(
+                new ArticleUpdateDto(...$request->validated()),
+                $article
+            );
+        } catch (Exception $e) {
+            Log::error('[ArticleController@update]: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => 'ARTICLE_UPDATE_ERROR'
+            ], 500);
+        }
+
+        return new ArticleResource($article);
     }
 
     /**
