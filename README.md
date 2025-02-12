@@ -48,7 +48,7 @@ php artisan migrate
 ### Authentication
 
 ```
-Bearer Token required for all endpoints
+Because of the simplicity of the project, authentication is not implemented.
 ```
 
 ### Articles
