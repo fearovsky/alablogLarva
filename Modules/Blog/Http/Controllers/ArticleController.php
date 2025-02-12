@@ -5,11 +5,13 @@ namespace Modules\Blog\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Blog\Entities\Article;
+use Illuminate\Support\Facades\Log;
+use Modules\Blog\Dto\ArticleStoreDto;
 use Modules\Blog\Services\ArticleService;
 use Modules\Blog\Transformers\ArticleResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Log;
-use Modules\Blog\Entities\Article;
+use Modules\Blog\Http\Requests\ArticleStoreRequest;
 
 class ArticleController extends Controller
 {
@@ -41,12 +43,24 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ArticleStoreRequest $request
      * @return JsonResource
      */
-    public function store(Request $request)
+    public function store(ArticleStoreRequest $request)
     {
-        //
+        try {
+            $article = $this->articleService->create(
+                new ArticleStoreDto(...$request->validated())
+            );
+        } catch (Exception $e) {
+            Log::error('[ArticleController@store]: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => 'ARTICLE_STORE_ERROR',
+            ], 500);
+        }
+
+        return new ArticleResource($article);
     }
 
     /**
