@@ -1,0 +1,21 @@
+meta {
+  name: [PUT] ArticleController@update
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{siteUrl}}/api/v1/blog/articles/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 4
+}
+
+body:json {
+  {
+    "title": "example"
+  }
+}

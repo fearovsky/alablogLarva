@@ -8,4 +8,9 @@ readonly abstract class BaseDto
     {
         return json_decode(json_encode($this), true);
     }
+
+    public function toArrayOnlyNotNull(): array
+    {
+        return array_filter(get_object_vars($this), fn($value) => $value !== null);
+    }
 }

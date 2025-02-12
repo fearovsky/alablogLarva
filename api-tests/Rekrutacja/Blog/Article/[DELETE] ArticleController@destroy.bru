@@ -1,0 +1,15 @@
+meta {
+  name: [DELETE] ArticleController@destroy
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{siteUrl}}/api/v1/blog/articles/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 1
+}

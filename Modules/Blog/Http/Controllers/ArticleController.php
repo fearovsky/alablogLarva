@@ -118,6 +118,8 @@ class ArticleController extends Controller
             ], 500);
         }
 
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'ARTICLE_DESTROY_SUCCESS'
+        ], 200);
     }
 }

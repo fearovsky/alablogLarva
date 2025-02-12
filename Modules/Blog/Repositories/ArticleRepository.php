@@ -24,9 +24,9 @@ class ArticleRepository
 
     public function update(ArticleUpdateDto $articleUpdateDto, Article $article): Article
     {
-        $article->update($articleUpdateDto->toArray());
+        $article->update($articleUpdateDto->toArrayOnlyNotNull());
 
-        return $article;
+        return $article->fresh();
     }
 
     public function delete(Article $article): void
