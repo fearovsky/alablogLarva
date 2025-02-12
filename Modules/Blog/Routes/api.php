@@ -16,5 +16,7 @@ use Modules\Blog\Http\Controllers\ArticleController;
 */
 
 Route::group(['middleware' => 'api', 'prefix' => config('app.apiVersion')], function () {
-    Route::apiResource('articles', ArticleController::class);
+    Route::group(['prefix' => 'blog'], function () {
+        Route::apiResource('articles', ArticleController::class);
+    });
 });
