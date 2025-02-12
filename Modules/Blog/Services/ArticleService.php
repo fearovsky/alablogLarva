@@ -42,8 +42,9 @@ class ArticleService
     public function update(ArticleUpdateDto $articleUpdateDto, Article $article): Article
     {
         $this->cacheService->forget(self::CACHE_KEY);
+        $this->articleRepository->update($articleUpdateDto, $article);
 
-        return $this->articleRepository->update($articleUpdateDto, $article);
+        return $this->articleRepository->refresh($article);
     }
 
     public function delete(Article $article): void

@@ -22,11 +22,14 @@ class ArticleRepository
         return $article;
     }
 
-    public function update(ArticleUpdateDto $articleUpdateDto, Article $article): Article
+    public function update(ArticleUpdateDto $articleUpdateDto, Article $article): bool
     {
-        $article->update($articleUpdateDto->toArrayOnlyNotNull());
+        return $article->update($articleUpdateDto->toArrayOnlyNotNull());
+    }
 
-        return $article->fresh();
+    public function refresh(Article $article): Article
+    {
+        return $article->refresh();
     }
 
     public function delete(Article $article): void
