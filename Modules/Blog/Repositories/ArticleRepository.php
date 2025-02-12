@@ -16,7 +16,10 @@ class ArticleRepository
 
     public function create(ArticleStoreDto $articleStoreDto): Article
     {
-        return Article::make(attributes: $articleStoreDto->toArray());
+        $article = Article::make(attributes: $articleStoreDto->toArray());
+        $article->save();
+
+        return $article;
     }
 
     public function update(ArticleUpdateDto $articleUpdateDto, Article $article): Article

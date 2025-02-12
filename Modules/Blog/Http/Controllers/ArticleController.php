@@ -3,7 +3,6 @@
 namespace Modules\Blog\Http\Controllers;
 
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Blog\Entities\Article;
 use Illuminate\Support\Facades\Log;
